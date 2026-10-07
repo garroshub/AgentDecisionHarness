@@ -1,7 +1,7 @@
 # Agent Decision Harness
 
 <p align="center">
-  <img src="assets/readme/hero.svg?v=2" width="100%" alt="Agent Decision Harness: financial forecast authority and complete records, illustrated by frozen replay FH025">
+  <img src="assets/readme/hero-display.svg" width="100%" alt="Agent Decision Harness: financial forecast authority and complete records, illustrated by frozen replay FH025">
 </p>
 
 **Inspect which forecaster sets a financial prediction, why authority changes, and which evidence supports the final record.**
