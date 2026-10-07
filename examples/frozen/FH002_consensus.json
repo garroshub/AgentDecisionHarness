@@ -1,0 +1,80 @@
+{
+  "case_id": "FH002",
+  "provenance": {
+    "source": "paper fresh post-earnings holdout",
+    "execution": "gemini-3.8-flash / execution_1",
+    "case_sha256": "2ec0ddd09ebe43fff0553eba3d8551de39b9466a13e1c6e2212f9ff0770d3b4c",
+    "identity": "strictly anonymized"
+  },
+  "evidence_text": "Inventory holding patterns at our distributors have had a material adverse impact on our net sales in recent periods.",
+  "deployment_context": {
+    "target": "post_earnings_market_adjusted_return_class",
+    "horizon": "event_day_to_next_trading_day",
+    "evidence_contract": "pre_event_anonymized_sec_filing",
+    "backbone": "gemini-3.8-flash"
+  },
+  "validated_scope": {
+    "target": "post_earnings_market_adjusted_return_class",
+    "horizon": "event_day_to_next_trading_day",
+    "evidence_contract": "pre_event_anonymized_sec_filing",
+    "backbone": "gemini-3.8-flash"
+  },
+  "qualification": {
+    "specialist_id": "postearn_auxiliary_text_expert_v1",
+    "status": "conditional",
+    "evidence_source": "frozen historical gate + fresh backbone-specific evaluation protocol",
+    "evaluated_task": "post_earnings_market_adjusted_return_class",
+    "control": "three_draw_llm_majority",
+    "note": "Conditional routing retained; evidence is directional and backbone-specific."
+  },
+  "auxiliary": {
+    "label": "positive_reaction"
+  },
+  "candidates": [
+    {
+      "case_id": "FH002",
+      "label": "negative_reaction",
+      "point_estimate": -2.5,
+      "interval": {
+        "lo": -6.5,
+        "hi": 1.5
+      },
+      "evidence_quote": "Inventory holding patterns at our distributors have had a material adverse impact on our net sales in recent periods.",
+      "source": "llm_candidate",
+      "model": "gemini-3.8-flash",
+      "seed": 271828
+    },
+    {
+      "case_id": "FH002",
+      "label": "negative_reaction",
+      "point_estimate": -2.5,
+      "interval": {
+        "lo": -6.5,
+        "hi": 1.5
+      },
+      "evidence_quote": "Inventory holding patterns at our distributors have had a material adverse impact on our net sales in recent periods.",
+      "source": "llm_candidate",
+      "model": "gemini-3.8-flash",
+      "seed": 376557
+    },
+    {
+      "case_id": "FH002",
+      "label": "negative_reaction",
+      "point_estimate": -2.5,
+      "interval": {
+        "lo": -6.0,
+        "hi": 1.0
+      },
+      "evidence_quote": "Inventory holding patterns at our distributors have had a material adverse impact on our net sales in recent periods.",
+      "source": "llm_candidate",
+      "model": "gemini-3.8-flash",
+      "seed": 481286
+    }
+  ],
+  "expected": {
+    "action": "retain_majority_record",
+    "authority": "llm_majority",
+    "final_label": "negative_reaction",
+    "audit_passed": true
+  }
+}

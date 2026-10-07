@@ -1,0 +1,98 @@
+{
+  "case_id": "FH025",
+  "provenance": {
+    "source": "paper fresh post-earnings holdout",
+    "execution": "gemini-3.8-flash / execution_1",
+    "case_sha256": "f7af6c751ee5f79817a040154bb8d5c7cc52519ef904e55e9b90eae359de3a4c",
+    "identity": "strictly anonymized"
+  },
+  "evidence_text": "Operating income increased $19.1 billion or 17% with growth across each of our segments. Revenue increased $36.6 billion or 15% with growth across each of our segments. Cost of revenue increased $13.7 billion or 19% driven by growth in ISSUER Cloud.",
+  "deployment_context": {
+    "target": "post_earnings_market_adjusted_return_class",
+    "horizon": "event_day_to_next_trading_day",
+    "evidence_contract": "pre_event_anonymized_sec_filing",
+    "backbone": "gemini-3.8-flash"
+  },
+  "validated_scope": {
+    "target": "post_earnings_market_adjusted_return_class",
+    "horizon": "event_day_to_next_trading_day",
+    "evidence_contract": "pre_event_anonymized_sec_filing",
+    "backbone": "gemini-3.8-flash"
+  },
+  "qualification": {
+    "specialist_id": "postearn_auxiliary_text_expert_v1",
+    "status": "conditional",
+    "evidence_source": "frozen historical gate + fresh backbone-specific evaluation protocol",
+    "evaluated_task": "post_earnings_market_adjusted_return_class",
+    "control": "three_draw_llm_majority",
+    "note": "Conditional routing retained; evidence is directional and backbone-specific."
+  },
+  "auxiliary": {
+    "label": "negative_reaction",
+    "probabilities": {
+      "flat": 0.25464951102419753,
+      "negative_reaction": 0.40028847003810697,
+      "positive_reaction": 0.34506201893769556
+    }
+  },
+  "candidates": [
+    {
+      "case_id": "FH025",
+      "label": "positive_reaction",
+      "point_estimate": 1.5,
+      "interval": {
+        "lo": 0.1,
+        "hi": 2.9
+      },
+      "evidence_quote": "Operating income increased $19.1 billion or 17% with growth across each of our segments.",
+      "source": "llm_candidate",
+      "model": "gemini-3.8-flash",
+      "seed": 271828
+    },
+    {
+      "case_id": "FH025",
+      "label": "flat",
+      "point_estimate": 0.4,
+      "interval": {
+        "lo": -1.8,
+        "hi": 2.6
+      },
+      "evidence_quote": "Operating income increased $19.1 billion or 17% with growth across each of our segments.",
+      "source": "llm_candidate",
+      "model": "gemini-3.8-flash",
+      "seed": 376557
+    },
+    {
+      "case_id": "FH025",
+      "label": "flat",
+      "point_estimate": 0.2,
+      "interval": {
+        "lo": -2.3,
+        "hi": 2.7
+      },
+      "evidence_quote": "Revenue increased $36.6 billion or 15% with growth across each of our segments.",
+      "source": "llm_candidate",
+      "model": "gemini-3.8-flash",
+      "seed": 481286
+    }
+  ],
+  "finalizer_record": {
+    "case_id": "FH025",
+    "label": "negative_reaction",
+    "point_estimate": -2.35,
+    "interval": {
+      "lo": -6.8,
+      "hi": 2.1
+    },
+    "evidence_quote": "Cost of revenue increased $13.7 billion or 19% driven by growth in ISSUER Cloud.",
+    "source": "constrained_finalizer",
+    "model": "gemini-3.8-flash",
+    "seed": 586015
+  },
+  "expected": {
+    "action": "route_and_finalize_complete_record",
+    "authority": "postearn_auxiliary_text_expert_v1",
+    "final_label": "negative_reaction",
+    "audit_passed": true
+  }
+}

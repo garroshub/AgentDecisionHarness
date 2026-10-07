@@ -1,0 +1,49 @@
+{
+  "case_id": "LIVE_DEMO_001",
+  "provenance": {
+    "source": "anonymized point-in-time earnings excerpt",
+    "identity": "strictly anonymized",
+    "purpose": "claude live-provider demo"
+  },
+  "evidence_text": "Operating income increased $19.1 billion or 17% with growth across each of our segments. Revenue increased $36.6 billion or 15% with growth across each of our segments. Cost of revenue increased $13.7 billion or 19% driven by growth in ISSUER Cloud.",
+  "deployment_context": {
+    "target": "post_earnings_market_adjusted_return_class",
+    "horizon": "next_trading_day_close",
+    "evidence_contract": "point_in_time_earnings_excerpt_v1",
+    "backbone": "claude-sonnet-5",
+    "provider": "claude"
+  },
+  "validated_scope": {
+    "target": "post_earnings_market_adjusted_return_class",
+    "horizon": "next_trading_day_close",
+    "evidence_contract": "point_in_time_earnings_excerpt_v1",
+    "backbone": "claude-sonnet-5",
+    "provider": "claude"
+  },
+  "qualification": {
+    "specialist_id": "postearn_auxiliary_text_expert_v1",
+    "status": "not_qualified",
+    "evidence_source": "no frozen historical claude qualification bundled with demo",
+    "evaluated_task": "post_earnings_market_adjusted_return_class",
+    "control": "three_draw_llm_majority",
+    "note": "Demo authority transfer is disabled until a provider-and-backbone-matched historical qualification package is supplied.",
+    "provider": "claude",
+    "backbone": "claude-sonnet-5"
+  },
+  "auxiliary": {
+    "label": "negative_reaction",
+    "complete_record": {
+      "case_id": "LIVE_DEMO_001",
+      "label": "negative_reaction",
+      "point_estimate": -2.35,
+      "interval": {
+        "lo": -4.2,
+        "hi": -1.2
+      },
+      "evidence_quote": "Cost of revenue increased $13.7 billion or 19% driven by growth in ISSUER Cloud.",
+      "source": "postearn_auxiliary_text_expert_v1",
+      "model": "specialist_v1",
+      "seed": null
+    }
+  }
+}

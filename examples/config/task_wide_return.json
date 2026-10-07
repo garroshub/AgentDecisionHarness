@@ -1,0 +1,20 @@
+{
+  "task_id": "wide_return_band_v1",
+  "bands": [
+    {
+      "label": "negative_reaction",
+      "max_value": -2.0,
+      "max_inclusive": false
+    },
+    {
+      "label": "flat",
+      "min_value": -2.0,
+      "max_value": 2.0
+    },
+    {
+      "label": "positive_reaction",
+      "min_value": 2.0,
+      "min_inclusive": false
+    }
+  ]
+}

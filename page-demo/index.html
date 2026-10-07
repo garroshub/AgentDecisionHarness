@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive demo for explainable, auditable financial prediction with governed forecast authority.">
+  <title>AgentDecisionHarness — Explainable Financial Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=20260930-nav-model3">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="AgentDecisionHarness home">
+        <span class="brand-mark">ADH</span>
+        <span>AgentDecisionHarness</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#console">Console</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#principles">Principles</a>
+      </nav>
+      <span class="status-pill"><span class="status-dot"></span> Static demo · no API</span>
+    </header>
+
+    <main id="top">
+      <section id="console" class="console-hero">
+        <div class="console-intro">
+          <div>
+            <p class="eyebrow">Explainable financial prediction</p>
+            <h1>Run the forecast.<br>See why it wins.</h1>
+          </div>
+          <p>
+            Choose a financial task, use the default qualification-gated policy or a preset variation,
+            edit candidate votes, and inspect the full decision trail.
+          </p>
+        </div>
+
+        <div class="install-strip">
+          <div class="install-title">
+            <span>INSTALL HARNESS</span>
+            <strong>Two commands to run locally</strong>
+          </div>
+          <div class="install-step">
+            <span>01</span>
+            <div>
+              <small>From the cloned repository</small>
+              <code>pip install -e .</code>
+            </div>
+          </div>
+          <div class="install-step">
+            <span>02</span>
+            <div>
+              <small>Verify the default harness</small>
+              <code>adh replay examples/frozen/FH025_route.json</code>
+            </div>
+          </div>
+          <div class="install-note">
+            <span>LIVE</span>
+            <p>Codex or Claude CLI is only required for live provider mode.</p>
+          </div>
+        </div>
+
+        <div class="prediction-app">
+          <div class="app-titlebar">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>ADH://PREDICTION_CONSOLE</span>
+            <span id="consoleRunId">RUN_0001</span>
+          </div>
+
+          <div class="task-ribbon" id="taskRibbon"></div>
+
+          <div class="app-grid">
+            <aside class="config-pane">
+              <div class="pane-head">
+                <span>CONFIG</span>
+                <button id="resetButton" type="button">RESET</button>
+              </div>
+
+              <label class="field">
+                <span>Provider</span>
+                <select id="providerSelect">
+                  <option value="codex">Codex CLI</option>
+                  <option value="claude">Claude Code</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Model</span>
+                <input id="modelInput" type="text" value="gpt-5.6-sol">
+              </label>
+
+              <label class="field">
+                <span>Policy preset</span>
+                <select id="policyPreset"></select>
+              </label>
+
+              <div class="policy-summary">
+                <span>Resolved policy</span>
+                <strong id="resolvedPolicyName">qualification_gated_v1</strong>
+                <p id="resolvedPolicyDesc"></p>
+              </div>
+
+              <label class="field">
+                <span>Qualification status</span>
+                <select id="qualificationStatus">
+                  <option value="conditional">Conditional</option>
+                  <option value="qualified">Qualified</option>
+                  <option value="not_qualified">Not qualified</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Specialist class</span>
+                <select id="specialistLabel"></select>
+              </label>
+
+              <div class="candidate-block">
+                <div class="mini-head">
+                  <span>Candidate records</span>
+                  <span id="candidateCount">3 draws</span>
+                </div>
+                <div id="candidateControls"></div>
+              </div>
+
+              <details class="advanced-panel">
+                <summary>ADVANCED RULE OVERRIDES</summary>
+                <label class="switch-row">
+                  <span><strong>Qualification gate</strong><small>Require earned authority</small></span>
+                  <input id="qualificationRequired" type="checkbox" checked>
+                  <i></i>
+                </label>
+                <label class="switch-row">
+                  <span><strong>Applicability gate</strong><small>Require scope match</small></span>
+                  <input id="applicabilityRequired" type="checkbox" checked>
+                  <i></i>
+                </label>
+                <label class="switch-row">
+                  <span><strong>Route majority conflict</strong><small>Thin majority + specialist conflict</small></span>
+                  <input id="routeMajority" type="checkbox" checked>
+                  <i></i>
+                </label>
+                <label class="switch-row">
+                  <span><strong>Route unanimous conflict</strong><small>Transfer against unanimity</small></span>
+                  <input id="routeUnanimous" type="checkbox">
+                  <i></i>
+                </label>
+                <label class="switch-row">
+                  <span><strong>Route no-majority</strong><small>Transfer without a strict majority</small></span>
+                  <input id="routeNoMajority" type="checkbox">
+                  <i></i>
+                </label>
+                <label class="switch-row">
+                  <span><strong>Configuration match</strong><small>Qualification fingerprint matches</small></span>
+                  <input id="configMatch" type="checkbox" checked>
+                  <i></i>
+                </label>
+                <label class="switch-row">
+                  <span><strong>Applicability pass</strong><small>Deployment scope is valid</small></span>
+                  <input id="applicabilityPass" type="checkbox" checked>
+                  <i></i>
+                </label>
+              </details>
+
+              <button id="runButton" class="run-button" type="button">
+                <span>▶</span> RUN FORECAST
+              </button>
+            </aside>
+
+            <section class="console-pane">
+              <div class="console-toolbar">
+                <div>
+                  <span class="terminal-label">LIVE OUTPUT</span>
+                  <strong id="consoleTaskName">Post-Earnings Reaction</strong>
+                </div>
+                <div class="console-status">
+                  <span id="dirtyStatus">READY</span>
+                  <i></i>
+                </div>
+              </div>
+
+              <div class="terminal-window">
+                <div id="terminalOutput" class="terminal-output"></div>
+              </div>
+
+              <div class="console-result-grid">
+                <article>
+                  <span>Forecast authority</span>
+                  <strong id="authorityValue">postearn_auxiliary_text_expert_v1</strong>
+                </article>
+                <article>
+                  <span>Final forecast</span>
+                  <strong id="finalClass">negative_reaction</strong>
+                </article>
+                <article>
+                  <span>Audit</span>
+                  <strong id="auditValue">PASS</strong>
+                </article>
+              </div>
+
+              <div class="evidence-result">
+                <div>
+                  <span>Authoritative evidence</span>
+                  <blockquote id="finalEvidence"></blockquote>
+                </div>
+                <div class="record-stats">
+                  <span id="finalPoint"></span>
+                  <span id="finalInterval"></span>
+                </div>
+              </div>
+
+              <div class="fingerprint-bar">
+                <span>CONFIG_FINGERPRINT</span>
+                <code id="fingerprintValue"></code>
+                <button id="copyFingerprint" type="button">COPY</button>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="console-caption">
+          <span>DEFAULT PATH</span>
+          <p>
+            Historical performance determines whether a specialist may hold forecast authority.
+            Runtime output explains why that authority was retained, transferred, or blocked.
+          </p>
+        </div>
+      </section>
+
+      <section class="value-strip">
+        <article>
+          <span>01</span>
+          <strong>Qualification</strong>
+          <p>Authority is earned under a matching task, model, policy, and specialist.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Disagreement</strong>
+          <p>Candidate vote structure is explicit before any authority transfer.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Evidence</strong>
+          <p>The final record carries the evidence quote supporting the authoritative forecast.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <strong>Audit</strong>
+          <p>Label, point estimate, interval, evidence, and authority remain internally consistent.</p>
+        </article>
+      </section>
+
+      <section id="architecture" class="section architecture-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">System architecture</p>
+            <h2>Prediction becomes a governed record.</h2>
+          </div>
+          <p>
+            Provider choice can change. Task definitions and routing rules can change.
+            The explanation and audit path stays explicit.
+          </p>
+        </div>
+
+        <figure class="ml-architecture">
+          <div class="figure-label">
+            <span>FIG. 1</span>
+            <strong>Qualification-Gated Explainable Forecast Routing</strong>
+          </div>
+
+          <div class="ml-grid">
+            <div class="ml-node evidence-node">
+              <span class="node-tag">INPUT</span>
+              <strong>Point-in-time evidence</strong>
+              <small>Current filing · market packet · target · horizon</small>
+            </div>
+
+            <div class="ml-arrow arrow-right">→</div>
+
+            <div class="ml-node provider-node">
+              <span class="node-tag">MODEL LAYER</span>
+              <strong>N candidate forecasts</strong>
+              <small>class + point + interval + exact evidence quote</small>
+              <div class="mini-records">
+                <span>DRAW 01</span>
+                <span>DRAW 02</span>
+                <span>DRAW 03</span>
+              </div>
+            </div>
+
+            <div class="ml-arrow arrow-right">→</div>
+
+            <div class="ml-node disagreement-node">
+              <span class="node-tag">STATE</span>
+              <strong>Disagreement classifier</strong>
+              <small>unanimous · thin majority · no majority</small>
+            </div>
+
+            <div class="branch-column">
+              <div class="ml-branch branch-top">↗</div>
+              <div class="ml-branch branch-bottom">↘</div>
+            </div>
+
+            <div class="ml-gate-stack">
+              <div class="ml-node qualification-node">
+                <span class="node-tag">HISTORICAL GATE</span>
+                <strong>Qualification</strong>
+                <small>Has this specialist earned authority under this configuration?</small>
+              </div>
+              <div class="ml-node applicability-node">
+                <span class="node-tag">RUNTIME GATE</span>
+                <strong>Applicability</strong>
+                <small>Does current target, horizon, evidence contract, and backbone match?</small>
+              </div>
+            </div>
+
+            <div class="ml-arrow arrow-right gate-arrow">→</div>
+
+            <div class="ml-node routing-node">
+              <span class="node-tag">POLICY</span>
+              <strong>Authority router</strong>
+              <small>retain LLM majority or transfer forecast authority</small>
+              <div class="routing-split">
+                <span>RETAIN</span>
+                <span>TRANSFER</span>
+              </div>
+            </div>
+
+            <div class="ml-arrow arrow-right">→</div>
+
+            <div class="ml-node final-node">
+              <span class="node-tag">OUTPUT</span>
+              <strong>Authoritative ForecastRecord</strong>
+              <small>class · point · interval · evidence · source</small>
+            </div>
+
+            <div class="ml-arrow arrow-right">→</div>
+
+            <div class="ml-node audit-node">
+              <span class="node-tag">AUDIT</span>
+              <strong>Consistency checks</strong>
+              <small>label · point · interval · evidence · fingerprint</small>
+            </div>
+          </div>
+
+          <figcaption>
+            Historical accuracy enters at the qualification gate. Runtime value comes from explicit authority,
+            evidence traceability, complete-record finalization, and auditable routing.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="principles" class="section principles-section">
+        <div class="principle-copy">
+          <p class="eyebrow">Design principle</p>
+          <h2>Accuracy earns authority. Explanation governs its use.</h2>
+          <p>
+            Historical predictive performance matters because it determines qualification.
+            The runtime product is the decision trail: evidence, disagreement, policy, authority, final record, and audit.
+          </p>
+        </div>
+
+        <div class="principle-table">
+          <div>
+            <span>Historical layer</span>
+            <strong>Qualification evidence</strong>
+            <p>Performance under a frozen provider, model, task, policy, and specialist configuration.</p>
+          </div>
+          <div>
+            <span>Runtime layer</span>
+            <strong>Authority decision</strong>
+            <p>Why the current case retained LLM majority, transferred authority, or blocked transfer.</p>
+          </div>
+          <div>
+            <span>Output layer</span>
+            <strong>Auditable forecast record</strong>
+            <p>A complete class, point, interval, evidence, source, and decision trace.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>AgentDecisionHarness</span>
+      <span>Explainable · auditable · configurable</span>
+      <span>Static demo · no live model calls</span>
+    </footer>
+  </div>
+
+  <script src="./logic.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
