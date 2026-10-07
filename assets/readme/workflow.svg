@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+  <title id="title">From candidate forecasts to an audited record</title>
+  <desc id="desc">Point-in-time evidence feeds candidate forecasts. Stored qualification and current applicability join the disagreement state at the routing decision. The router retains the primary record or selects a complete specialist record, then audits the selected record.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#72dab0"/></marker></defs>
+  <rect width="1200" height="570" rx="12" fill="#101814"/>
+  <g font-family="Segoe UI,Arial,sans-serif" fill="#f0f4f1">
+    <text x="56" y="62" font-size="32" font-weight="600">From candidate forecasts to an audited record</text>
+    <g fill="#17241c" stroke="#34483c" stroke-width="1.5">
+      <rect x="56" y="102" width="290" height="100" rx="8"/>
+      <rect x="456" y="102" width="290" height="100" rx="8"/>
+      <rect x="856" y="102" width="290" height="100" rx="8"/>
+      <rect x="56" y="294" width="290" height="136" rx="8"/>
+      <rect x="456" y="294" width="290" height="136" rx="8"/>
+      <rect x="856" y="294" width="290" height="136" rx="8"/>
+    </g>
+    <g font-size="27" font-weight="600">
+      <text x="78" y="146">Evidence</text>
+      <text x="478" y="146">Candidate records</text>
+      <text x="878" y="146">Disagreement</text>
+      <text x="78" y="338">Authority checks</text>
+      <text x="478" y="338">Routing decision</text>
+      <text x="878" y="338">Selected record</text>
+    </g>
+    <g font-size="24" fill="#b8c9bf">
+      <text x="78" y="181">Fixed information cutoff</text>
+      <text x="478" y="181">Class · point · interval</text>
+      <text x="878" y="181">Candidate vote structure</text>
+      <text x="78" y="376">Qualification</text>
+      <text x="78" y="407">Current applicability</text>
+      <text x="478" y="376">Retain primary or</text>
+      <text x="478" y="407">select specialist</text>
+      <text x="878" y="376">Complete forecast fields</text>
+      <text x="878" y="407">Selected evidence quote</text>
+    </g>
+    <text x="856" y="516" font-size="27" fill="#72dab0" font-weight="600">Record audit</text>
+    <text x="56" y="516" font-size="24" fill="#92a79a">Policy controls when a specialist receives authority.</text>
+  </g>
+  <g fill="none" stroke="#72dab0" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M346 152H444"/>
+    <path d="M746 152H844"/>
+    <path d="M1001 202V248H601V282"/>
+    <path d="M346 362H444"/>
+    <path d="M746 362H844"/>
+    <path d="M1001 430V474"/>
+  </g>
+</svg>

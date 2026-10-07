@@ -1,157 +1,132 @@
 # AgentDecisionHarness
 
-AgentDecisionHarness controls forecast authority, conditional routing, and complete-record finalization through configurable task and policy contracts.
+<p align="center">
+  <img src="assets/readme/hero.svg" width="100%" alt="AgentDecisionHarness: financial forecast authority and complete records, illustrated by frozen replay FH025">
+</p>
 
-[Open the interactive demo](https://garroshub.github.io/AgentDecisionHarness/page-demo/).
+**Inspect which forecaster sets a financial prediction, why authority changes, and which evidence supports the final record.**
 
-## Technical report
+[**Interactive demo →**](https://garroshub.github.io/AgentDecisionHarness/page-demo/) · [**Technical report →**](paper/technical_report.pdf) · [Architecture](docs/ARCHITECTURE.md) · [Configuration](docs/CONFIGURATION.md)
 
-[Read the technical report](paper/technical_report.pdf): **Agent Harnesses for Evidence-Grounded Financial Prediction: Qualification-Gated Authority and Conditional Routing**, by Garros Gong.
+Python 3.11+ · Frozen replay without model calls · Codex and Claude Code CLI adapters
 
-The report studies specialist qualification, conditional routing, and forecast-record consistency across financial prediction tasks. This repository provides a configurable implementation of the decision design and frozen examples for inspecting its behavior.
+## See the decision
 
-The default policy uses:
+The included frozen case contains three candidate forecasts, an auxiliary specialist record, and qualification evidence. Replay exposes the authority decision and checks the complete selected record.
 
-- three independent candidate draws
-- qualification-gated authority transfer
-- applicability checks
-- majority-conflict routing
-- complete-record finalization
-- evidence and point-class consistency checks
+```text
+Case               FH025
+Qualification      CONDITIONAL
+Applicability      PASS
+LLM votes          positive_reaction / flat / flat
+Auxiliary          negative_reaction
+Action             route_and_finalize_complete_record
 
-The included tasks are examples. New tasks can be defined through `TaskSpec` as long as the forecast follows the current record contract: discrete label, numeric point estimate, prediction interval, and evidence quote.
+Final complete record
+  class            negative_reaction
+  point estimate   -2.35
+  interval         [-6.80, +2.10]
 
-## Install
+Frozen replay check PASS
+```
 
-Python 3.11+.
+This excerpt comes from `adh replay examples/frozen/FH025_route.json`. The full output includes the selected evidence quote, configuration checks, and six record audits.
 
-    pip install -e .
+## Run the frozen replay
 
-## Tests
+```bash
+git clone https://github.com/garroshub/AgentDecisionHarness.git
+cd AgentDecisionHarness
+pip install -e .
+adh replay examples/frozen/FH025_route.json
+```
 
-PowerShell:
+The replay uses stored records. Live mode requires an installed, authenticated provider CLI.
 
-    .\run_tests.ps1
+## How authority moves
 
-Or:
+<p align="center">
+  <img src="assets/readme/workflow.svg" width="100%" alt="Evidence feeds candidate forecasts. Qualification, applicability, and disagreement determine whether the primary record is retained or a complete specialist record is selected, followed by a record audit.">
+</p>
 
-    python -m unittest discover -s tests
+| Decision layer | What the harness checks |
+| --- | --- |
+| Qualification | Specialist status and a matching configuration fingerprint |
+| Applicability | Target, horizon, evidence contract, and backbone scope |
+| Routing | Candidate vote structure under the configured policy |
+| Finalization | The complete selected record, including its evidence quote |
+| Audit | Valid class, finite numbers, interval containment, point–class consistency, and quote matching |
 
-## Frozen replay
+The default policy uses three candidate draws and conditional majority-conflict routing. Task and policy overrides support different draw counts, label spaces, numeric bands, and routing rules.
 
-    .\run_demo.ps1
+## Read the technical report
 
-Direct CLI:
+**Agent Harnesses for Evidence-Grounded Financial Prediction: Qualification-Gated Authority and Conditional Routing**
 
-    adh replay examples\frozen\FH025_route.json
+Garros Gong
 
-## Inspect resolved configuration
+[Read the PDF](paper/technical_report.pdf)
 
-    adh config examples\live\sample_postearn_codex.json
+The report evaluates specialist qualification, conditional routing, and forecast-record consistency across financial prediction tasks. This repository provides a configurable implementation and frozen replay examples of the decision design.
 
-This prints the resolved task, resolved policy, and configuration fingerprint.
+## Configure and extend
 
-## Live provider mode
+<details>
+<summary><strong>Inspect settings, override rules, or use a live provider</strong></summary>
 
-Codex:
+Inspect the resolved task, policy, and configuration fingerprint:
 
-    .\run_live_demo.ps1 -Provider codex
+```bash
+adh config examples/live/sample_postearn_codex.json
+```
 
-Claude Code:
+Override the policy or financial target definition:
 
-    .\run_live_demo.ps1 -Provider claude
+```bash
+adh config examples/live/sample_postearn_codex.json --policy-config examples/config/policy_five_draw.json
+adh config examples/live/sample_postearn_codex.json --task-config examples/config/task_wide_return.json
+```
 
-Direct CLI:
+Run a configured live case through Codex:
 
-    adh live examples\live\sample_postearn_codex.json --provider codex
+```bash
+adh live examples/live/sample_postearn_codex.json --provider codex
+```
 
-Live mode requires the selected provider CLI to be installed and authenticated.
+PowerShell helpers support both provider adapters:
 
-## Configuration
+```powershell
+.\run_live_demo.ps1 -Provider codex
+.\run_live_demo.ps1 -Provider claude
+```
 
-Task configuration controls:
+New `TaskSpec` definitions retain the forecast contract: discrete label, point estimate, prediction interval, and evidence quote. Qualification fingerprints include the resolved task and policy, provider, backbone, target, horizon, evidence contract, and specialist.
 
-- task identity
-- label space
-- numeric bands
-- numeric unit
-- interval level
-- evidence matching
+[Configuration guide](docs/CONFIGURATION.md) · [Data contract](docs/DATA_CONTRACT.md)
 
-Policy configuration controls:
+</details>
 
-- draw count
-- qualification gate
-- applicability gate
-- majority-conflict routing
-- unanimous-conflict routing
-- no-majority routing
-- finalization mode
+## Check the implementation
 
-External JSON files can override only the fields that change. Unspecified fields inherit the defaults.
+After installation:
 
-Examples:
+```bash
+python -m unittest discover -s tests
+```
 
-    adh config examples\live\sample_postearn_codex.json --policy-config examples\config\policy_five_draw.json
+PowerShell users can also run `.\run_tests.ps1`. The current test suite contains 22 tests.
 
-    adh config examples\live\sample_postearn_codex.json --task-config examples\config\task_wide_return.json
+Candidate providers receive case identity, target, horizon, evidence contract, and point-in-time evidence. Specialist outputs, routing state, oracle data, and realized outcomes stay outside the candidate input. Record consistency checks assess structural properties and exact quote matching.
 
-## Qualification fingerprint
+## Explore the repository
 
-Authority qualification is tied to the resolved configuration.
+| Location | Contents |
+| --- | --- |
+| [`src/agent_decision_harness/`](src/agent_decision_harness/) | Providers, qualification, routing, finalization, and audits |
+| [`examples/`](examples/) | Frozen records, live-case inputs, and configuration overrides |
+| [`tests/`](tests/) | Harness, policy, configuration, and provider tests |
+| [`docs/`](docs/) | Architecture, configuration, and data contracts |
+| [`page-demo/`](page-demo/) | Static interactive demo; no live model calls |
+| [`paper/`](paper/) | Accompanying technical report |
 
-The fingerprint includes:
-
-- task
-- policy
-- provider
-- backbone
-- target
-- horizon
-- evidence contract
-- specialist
-
-Changing these inputs changes the qualification identity.
-
-## Data boundary
-
-Candidate providers receive only:
-
-- case ID
-- target
-- horizon
-- evidence contract
-- point-in-time evidence
-
-They do not receive specialist output, qualification status, routing state, oracle data, or realized outcomes.
-
-## Page demo
-
-Run locally:
-
-    python -m http.server 8000 --directory page-demo
-
-Then open:
-
-    http://localhost:8000
-
-The page demo is static and does not make live model calls.
-
-## Repository layout
-
-    src/agent_decision_harness/
-    examples/
-        config/
-        live/
-        frozen/
-    tests/
-    docs/
-    page-demo/
-
-    pyproject.toml
-    run_demo.ps1
-    run_live_demo.ps1
-    run_tests.ps1
-
-See `docs/` for architecture, configuration, and data contracts.
-
+To serve the demo locally, run `python -m http.server 8000 --directory page-demo` and open `http://localhost:8000`.
