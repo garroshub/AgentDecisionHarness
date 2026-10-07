@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="370" viewBox="0 0 1200 370" role="img" aria-labelledby="title desc">
-  <title id="title">AgentDecisionHarness</title>
+  <title id="title">Agent Decision Harness</title>
   <desc id="desc">Financial forecast authority and complete records. Frozen replay FH025 changes the flat majority to a negative reaction after conditional qualification and applicability checks.</desc>
   <rect width="1200" height="370" rx="12" fill="#101814"/>
   <g font-family="Segoe UI,Arial,sans-serif">
     <text x="56" y="58" font-size="22" fill="#72dab0" letter-spacing="2">FINANCIAL PREDICTION / DECISION HARNESS</text>
-    <text x="52" y="150" font-size="72" font-weight="700" fill="#f0f4f1">AgentDecisionHarness</text>
+    <text x="52" y="150" font-size="72" font-weight="700" fill="#f0f4f1">Agent Decision Harness</text>
     <text x="56" y="204" font-size="29" fill="#c2cec7">Forecast authority. Evidence traceability. Complete records.</text>
   </g>
   <path d="M56 244H1144" stroke="#34483c" stroke-width="1"/>
