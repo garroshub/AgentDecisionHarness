@@ -2,6 +2,8 @@
 
 AgentDecisionHarness controls forecast authority, conditional routing, and complete-record finalization through configurable task and policy contracts.
 
+[Open the interactive demo](https://garroshub.github.io/AgentDecisionHarness/page-demo/).
+
 ## Technical report
 
 [Read the technical report](paper/technical_report.pdf): **Agent Harnesses for Evidence-Grounded Financial Prediction: Qualification-Gated Authority and Conditional Routing**, by Garros Gong.
