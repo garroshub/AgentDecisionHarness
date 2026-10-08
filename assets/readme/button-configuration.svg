@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="48" viewBox="0 0 176 48" role="img" aria-labelledby="title desc">
+  <title id="title">Configuration</title>
+  <desc id="desc">Open the configuration.</desc>
+  <rect x="1" y="1" width="174" height="46" rx="12" fill="#f0f5f1" stroke="#cddbd1" stroke-width="1.5"/>
+  <g fill="none" stroke="#397d5d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="25" cy="24" r="7"/><path d="M25 10v5m0 18v5M11 24h5m18 0h5m-24-10 4 4m12 12 4 4m0-20-4 4m-12 12-4 4"/></g>
+  <text x="49" y="30" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600" fill="#183b2a">Configuration</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="166" height="48" viewBox="0 0 166 48" role="img" aria-labelledby="title desc">
+  <title id="title">Architecture</title>
+  <desc id="desc">Open the architecture.</desc>
+  <rect x="1" y="1" width="164" height="46" rx="12" fill="#f0f5f1" stroke="#cddbd1" stroke-width="1.5"/>
+  <g fill="none" stroke="#397d5d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="13" width="10" height="10" rx="2"/><rect x="29" y="13" width="10" height="10" rx="2"/><rect x="18.5" y="29" width="10" height="10" rx="2"/><path d="M18 18h11M23 23v6M34 23l-6 6"/></g>
+  <text x="49" y="30" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600" fill="#183b2a">Architecture</text>
+</svg>

@@ -6,7 +6,12 @@
 
 **Inspect which forecaster sets a financial prediction, why authority changes, and which evidence supports the final record.**
 
-[**Interactive demo →**](https://garroshub.github.io/AgentDecisionHarness/page-demo/) · [**Technical report →**](paper/technical_report.pdf) · [Architecture](docs/ARCHITECTURE.md) · [Configuration](docs/CONFIGURATION.md)
+<p align="center">
+  <a href="https://garroshub.github.io/AgentDecisionHarness/page-demo/"><img src="assets/readme/button-demo.svg" height="44" alt="Interactive demo"></a>
+  <a href="paper/technical_report.pdf"><img src="assets/readme/button-report.svg" height="44" alt="Technical report"></a>
+  <a href="docs/ARCHITECTURE.md"><img src="assets/readme/button-architecture.svg" height="44" alt="Architecture"></a>
+  <a href="docs/CONFIGURATION.md"><img src="assets/readme/button-configuration.svg" height="44" alt="Configuration"></a>
+</p>
 
 Python 3.11+ · Frozen replay without model calls · Codex and Claude Code CLI adapters
 
@@ -59,13 +64,18 @@ The replay uses stored records. Live mode requires an installed, authenticated p
 
 The default policy uses three candidate draws and conditional majority-conflict routing. Task and policy overrides support different draw counts, label spaces, numeric bands, and routing rules.
 
-## Read the technical report
+## Technical report
 
-**Agent Harnesses for Evidence-Grounded Financial Prediction: Qualification-Gated Authority and Conditional Routing**
-
+**Agent Harnesses for Evidence-Grounded Financial Prediction: Qualification-Gated Authority and Conditional Routing**<br>
 Garros Gong
 
-[Read the PDF](paper/technical_report.pdf)
+<p align="center">
+  <a href="paper/technical_report.pdf"><img src="assets/readme/report-cover.png" width="660" alt="First page of the technical report, showing its title, abstract, and introduction"></a>
+</p>
+
+<p align="center">
+  <a href="paper/technical_report.pdf"><img src="assets/readme/button-read-report.svg" height="48" alt="Read the full report"></a>
+</p>
 
 The report evaluates specialist qualification, conditional routing, and forecast-record consistency across financial prediction tasks. This repository provides a configurable implementation and frozen replay examples of the decision design.
 
@@ -130,3 +140,5 @@ Candidate providers receive case identity, target, horizon, evidence contract, a
 | [`paper/`](paper/) | Accompanying technical report |
 
 To serve the demo locally, run `python -m http.server 8000 --directory page-demo` and open `http://localhost:8000`.
+
+Licensed under the [MIT License](LICENSE).

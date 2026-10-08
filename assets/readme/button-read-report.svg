@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="286" height="52" viewBox="0 0 286 52" role="img" aria-labelledby="title desc">
+  <title id="title">Read the full technical report</title>
+  <desc id="desc">Open the complete technical report PDF.</desc>
+  <rect x="1" y="1" width="284" height="50" rx="12" fill="#246b4a"/>
+  <g fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 13h13l7 7v19H17z"/><path d="M30 13v8h7M21 27h12M21 32h12"/></g>
+  <text x="49" y="32" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600" fill="#ffffff">Read the full report</text>
+  <path d="M254 26h16m-6-6 6 6-6 6" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
